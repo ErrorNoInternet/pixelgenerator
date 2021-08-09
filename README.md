@@ -14,7 +14,7 @@ Type `pixelgenerator help` to see usage information
 
 ## Examples
 ```
-pixelgenerator speed:80
+pixelgenerator size:460x200 start:#1d1e1f colors:#84ccec,#1d1e1f
 ```
 ![Image](https://github.com/ErrorNoInternet/pixelgenerator/blob/main/examples/example1.gif)
 
