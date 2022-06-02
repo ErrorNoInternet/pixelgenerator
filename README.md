@@ -1,5 +1,5 @@
 # PixelGenerator
-A simple tool that generates a satisfying GIF image
+A simple tool that generates a satisfying GIF
 
 ## Installation
 ```sh
