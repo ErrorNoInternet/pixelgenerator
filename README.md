@@ -28,3 +28,5 @@ pixelgenerator start:#000000 speed:4 colors:#0068db,#000000
 pixelgenerator speed:1 size:40x40
 ```
 ![Image](https://github.com/ErrorNoInternet/pixelgenerator/blob/main/examples/example4.gif)
+
+<sub>If you would like to modify or use this repository (including its code) in your own project, please be sure to credit!</sub>
