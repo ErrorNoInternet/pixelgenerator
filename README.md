@@ -1,7 +1,5 @@
 # PixelGenerator
-A simple tool that generates a satisfying GIF image
-
-----
+A simple tool that generates a satisfying GIF
 
 ## Installation
 ```sh
@@ -11,8 +9,6 @@ sudo cp main.py /usr/local/bin/pixelgenerator
 sudo chmod +x /usr/local/bin/pixelgenerator
 ```
 Type `pixelgenerator help` to see usage information
-
-----
 
 ## Examples
 ```
@@ -34,3 +30,5 @@ pixelgenerator start:#000000 speed:4 colors:#0068db,#000000
 pixelgenerator speed:1 size:40x40
 ```
 ![Image](https://github.com/ErrorNoInternet/pixelgenerator/blob/main/examples/example4.gif)
+
+<sub>If you would like to modify or use this repository (including its code) in your own project, please be sure to credit!</sub>
