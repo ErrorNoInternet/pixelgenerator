@@ -5,8 +5,10 @@ A simple tool that generates a satisfying GIF image
 
 ## Installation
 ```sh
-git clone https://github.com/ErrorNoInternet/pixelgenerator && cd pixelgenerator
-sudo cp main.py /usr/bin/pixelgenerator && sudo chmod +x /usr/bin/pixelgenerator
+git clone https://github.com/ErrorNoInternet/pixelgenerator
+cd pixelgenerator
+sudo cp main.py /usr/local/bin/pixelgenerator
+sudo chmod +x /usr/local/bin/pixelgenerator
 ```
 Type `pixelgenerator help` to see usage information
 
