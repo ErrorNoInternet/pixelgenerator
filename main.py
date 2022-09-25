@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 
-import sys, random
+import sys
+import random
 from PIL import Image, ImageDraw
 
-pixelsPerFrame = 8
-outputFile = "output.gif"
-imageSize = (400, 200)
-imageColor = "#000000"
-pixelColors = ["#ff0000", "#00ff00", "#0000ff", "#000000"]
+pixels_per_frame = 8
+output_file = "output.gif"
+image_size = (400, 200)
+image_color = "#000000"
+pixel_colors = ["#ff0000", "#00ff00", "#0000ff", "#000000"]
 
 for argument in sys.argv:
     argument = argument.lower()
@@ -20,63 +21,60 @@ colors - list of colors to be used
 output - path of the output image
 
 example:
-pixelgenerator size:400x200 start:#0068DB speed:16 colors:#FF0000,#00FF00 output:file.gif""")
+pixelgenerator size:400x200 start:#0068db speed:16 colors:#ff0000,#00ff00 output:file.gif""")
         exit()
     elif argument.startswith("size:"):
-        imageX = argument.split(":")[1].split("x")[0]
-        imageY = argument.split(":")[1].split("x")[1]
+        image_x = argument.split(":")[1].split("x")[0]
+        image_y = argument.split(":")[1].split("x")[1]
         try:
-            imageSize = (int(imageX), int(imageY))
+            image_size = (int(image_x), int(image_y))
         except:
             print("invalid image size")
             exit()
     elif argument.startswith("start:"):
-        imageColor = argument.split(":")[1]
+        image_color = argument.split(":")[1]
     elif argument.startswith("colors:"):
-        pixelColors = argument.split(":")[1].split(",")
+        pixel_colors = argument.split(":")[1].split(",")
     elif argument.startswith("speed:"):
-        pixelsPerFrame = int(argument.split(":")[1])
+        pixels_per_frame = int(argument.split(":")[1])
     elif argument.startswith("output:"):
-        outputFile = argument.split(":")[1]
+        output_file = argument.split(":")[1]
 
 locations = []
-for x in range(0, imageSize[0], 10):
-    for y in range(0, imageSize[1], 10):
+for x in range(0, image_size[0], 10):
+    for y in range(0, image_size[1], 10):
         locations.append((x, y))
-value = round(len(locations) / pixelsPerFrame) / pixelsPerFrame
+value = round(len(locations) / pixels_per_frame) / pixels_per_frame
 if round(value, 3) != value or value <= 0.01:
-    print(f"speed ({pixelsPerFrame}) does not match image size {imageSize}")
+    print(f"speed ({pixels_per_frame}) does not match image size {image_size}")
     exit()
 
 frames = []
-imageRGB = tuple(int(imageColor.replace("#", "")[i:i+2], 16) for i in (0, 2, 4))
+image_rgb = tuple(int(image_color.replace("#", "")[i:i+2], 16) for i in (0, 2, 4))
 
-for index in range(len(pixelColors)):
-    image = Image.new('P', imageSize, imageRGB)
+for index in range(len(pixel_colors)):
+    image = Image.new('P', image_size, image_rgb)
     draw = ImageDraw.Draw(image)
-    fill_color = imageColor
-    if index > 0:
-        fill_color = pixelColors[index-1]
-    draw.rectangle([(0, 0), imageSize], fill = fill_color)
+    draw.rectangle([(0, 0), image_size], fill = image_color if index <= 0 else pixel_colors[index-1])
 
     locations = []
-    for x in range(0, imageSize[0], 10):
-        for y in range(0, imageSize[1], 10):
+    for x in range(0, image_size[0], 10):
+        for y in range(0, image_size[1], 10):
             locations.append((x, y))
 
-    for i in range(round(len(locations) / pixelsPerFrame)):
-        for i in range(pixelsPerFrame):
+    for i in range(round(len(locations) / pixels_per_frame)):
+        for i in range(pixels_per_frame):
             location = random.choice(locations)
             locations.remove(location)
 
             shape = [location, (location[0] + 10, location[1] + 10)]
-            draw.rectangle(shape, fill = pixelColors[index])
+            draw.rectangle(shape, fill = pixel_colors[index])
 
         frames.append(image.copy())
 
 if len(frames) > 0:
     frames[0].save(
-        outputFile,
+        output_file,
         save_all=True,
         append_images=frames[1:],
         duration=40,
