@@ -49,38 +49,39 @@ if round(value, 3) != value or value <= 0.01:
     exit()
 
 frames = []
-pixels = {}
 imageRGB = tuple(int(imageColor.replace("#", "")[i:i+2], 16) for i in (0, 2, 4))
 
 for index in range(len(pixelColors)):
-    pixels[index] = {}
+    image = Image.new('P', imageSize, imageRGB)
+    draw = ImageDraw.Draw(image)
+    fill_color = imageColor
+    if index > 0:
+        fill_color = pixelColors[index-1]
+    draw.rectangle([(0, 0), imageSize], fill = fill_color)
+
     locations = []
     for x in range(0, imageSize[0], 10):
         for y in range(0, imageSize[1], 10):
             locations.append((x, y))
 
     for i in range(round(len(locations) / pixelsPerFrame)):
-        image = Image.new('P', imageSize, imageRGB)
-        draw = ImageDraw.Draw(image)
-
-        for layer in pixels:
-            for pixel in pixels[layer]:
-                draw.rectangle(pixels[layer][pixel], fill = pixelColors[layer])
-        
         for i in range(pixelsPerFrame):
             location = random.choice(locations)
             locations.remove(location)
+
             shape = [location, (location[0] + 10, location[1] + 10)]
             draw.rectangle(shape, fill = pixelColors[index])
-            pixels[index][location] = shape
-        frames.append(image)
+
+        frames.append(image.copy())
 
 if len(frames) > 0:
     frames[0].save(
-        outputFile, save_all=True,
+        outputFile,
+        save_all=True,
         append_images=frames[1:],
-        duration=40, loop=0, optimize=False
+        duration=40,
+        loop=0,
+        optimize=False,
     )
 else:
     print("image too small")
-
