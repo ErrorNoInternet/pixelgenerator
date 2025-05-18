@@ -66,6 +66,8 @@ for index in range(len(pixel_colors)):
         for y in range(0, image_size[1], 10):
             locations.append((x, y))
 
+    frames.append(image.copy())
+
     for i in range(round(len(locations) / pixels_per_frame)):
         for i in range(pixels_per_frame):
             location = random.choice(locations)
