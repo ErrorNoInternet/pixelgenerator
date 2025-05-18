@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-import sys
 import random
+import sys
+
 from PIL import Image, ImageDraw
 
 pixels_per_frame = 8
@@ -50,12 +51,15 @@ if round(value, 3) != value or value <= 0.01:
     exit()
 
 frames = []
-image_rgb = tuple(int(image_color.replace("#", "")[i:i+2], 16) for i in (0, 2, 4))
+image_rgb = tuple(int(image_color.replace("#", "")[i : i + 2], 16) for i in (0, 2, 4))
 
 for index in range(len(pixel_colors)):
-    image = Image.new('P', image_size, image_rgb)
+    image = Image.new("P", image_size, image_rgb)
     draw = ImageDraw.Draw(image)
-    draw.rectangle([(0, 0), image_size], fill = image_color if index <= 0 else pixel_colors[index-1])
+    draw.rectangle(
+        [(0, 0), image_size],
+        fill=image_color if index <= 0 else pixel_colors[index - 1],
+    )
 
     locations = []
     for x in range(0, image_size[0], 10):
@@ -68,7 +72,7 @@ for index in range(len(pixel_colors)):
             locations.remove(location)
 
             shape = [location, (location[0] + 10, location[1] + 10)]
-            draw.rectangle(shape, fill = pixel_colors[index])
+            draw.rectangle(shape, fill=pixel_colors[index])
 
         frames.append(image.copy())
 
